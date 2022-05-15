@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Home</title>
+    <style>
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: sans-serif;
+            font-size: 16px;
+            background-color: #fff;
+        }
+
+        h1 {
+            font-variant: small-caps;
+        }
+
+        .contact {
+            position: absolute;
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            transition: .5s;
+            background-color: #fff;
+        }
+
+        .contact section {
+            text-align: right;
+            padding: 10px;
+        }
+
+        .contact section a {
+            border: none;
+            text-decoration: none;
+            outline: none;
+            color: #e05e02;
+        }
+
+        .contact-form {
+            position: absolute;
+            max-width: 500px;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            width: 90%;
+            border-radius: 20px;
+        }
+
+        .contact-form-input,
+        .contact-form button {
+            font-family: inherit;
+            text-transform: uppercase;
+            font-weight: bold;
+            font-size: 12px;
+            padding: 24px;
+            letter-spacing: 1px;
+            border: none;
+            width: 100%;
+            outline: none;
+        }
+
+        .contact-form button {
+            background-color: #e05e02;
+            padding: 20px;
+            color: #fff;
+        }
+
+        .contact-form div:nth-child(1),
+        .contact-form div:nth-child(2) {
+            position: relative;
+        }
+
+        .contact-form div:nth-child(1)::after,
+        .contact-form div:nth-child(2)::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: 1px;
+            background-color: rgba(0, 0, 0, 0.15);
+        }
+
+        .contact-form textarea {
+            overflow: auto;
+            height: 100px;
+            text-transform: none;
+        }
+    </style>
+
+</head>
+<body>
+<div class="contact" id="contact-id">
+    <form action="/email" class="contact-form" method="POST" id="form">
+        <div>
+            <input type="text" name="name" placeholder="name" class="contact-form-input" required/>
+        </div>
+        <div>
+            <input type="email" name="email" placeholder="email" class="contact-form-input" required/>
+        </div>
+        <div>
+            <textarea name="message" class="contact-form-input" placeholder="MESSAGE" required></textarea>
+        </div>
+        <div>
+            <button type="submit">send</button>
+        </div>
+    </form>
+</div>
+
+<script type="text/javascript">
+    const form = document.querySelector('#form')
+    form.addEventListener('submit', submitEmailForm)
+    function submitEmailForm(e) {
+        e.preventDefault()
+        let body = {
+            name: form.name.value,
+            email: form.email.value,
+            message: form.message.value
+        }
+        fetch(form.action, {
+            "method": 'POST',
+            "body": JSON.stringify(body),
+            "headers": {"Content-Type": "application/json"},
+        }).then( response =>{
+            if(response.ok){
+                console.log(response)
+            }else{
+                console.log(response)
+            }
+        })
+    }
+</script>
+</body>
+</html>
